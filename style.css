@@ -6,6 +6,8 @@
 .header {
     text-align: center;
     border: 2px solid black;
+    background: rgb(255, 139, 139);
+    background: linear-gradient(250deg, rgba(255, 139, 139, 1) 0%, rgba(255, 232, 189, 1) 15%, rgba(245, 251, 203, 1) 29%, rgba(219, 255, 192, 1) 48%, rgba(156, 238, 255, 1) 64%, rgba(132, 207, 255, 1) 81%, rgba(214, 192, 255, 1) 95%);
 }
 
 .wrapper {
@@ -28,7 +30,6 @@
     display: flex;
     flex: 1 1 auto;
     margin: 0px;
-
 }
 
 
@@ -39,8 +40,8 @@
 .gridContainer {
     display: inline-grid;
     border: 1px solid black;
-    width: 500px;
-    height: 500px;
+    width: 350px;
+    height: 350px;
     color: white;
 
 }
@@ -65,7 +66,7 @@ button .on {
 #color {
     -webkit-appearance: none;
     -moz-appearance: none;
-    border: none;
+    border: 0;
     outline: none;
     width: 60px;
     height: 60px;
@@ -75,6 +76,7 @@ button .on {
 
 #color::-webkit-color-swatch {
     border-radius: 50%;
+
 }
 
 label {

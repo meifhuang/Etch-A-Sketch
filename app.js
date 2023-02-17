@@ -7,6 +7,7 @@ const previous_color = 'black';
 let current_size = default_size;
 let current_color = default_color;
 let current_mode = default_mode;
+let isDrawing = false;
 
 
 const container = document.querySelector(".gridContainer")
@@ -17,6 +18,7 @@ const colorPick = document.querySelector('#color')
 const clearGrid = document.querySelector('#clear');
 const eraserButton = document.querySelector('#eraseMode')
 const penButton = document.querySelector('#colorMode')
+const rainbowButton = document.querySelector('#rainbowMode');
 //grid setup
 
 //clicking the clear button will reload and clear the grid of color
@@ -26,10 +28,25 @@ colorPick.addEventListener('input', function update() {
 });
 eraserButton.addEventListener('click', function erase() {
     current_color = "white";
+    current_mode = "erase";
 });
 penButton.addEventListener('click', function pen() {
     current_color = colorPick.value;
+    current_mode = "pen";
 });
+rainbowButton.addEventListener('click', function setRain() {
+    rainbow();
+    current_mode = "rainbow";
+})
+
+function rainbow() {
+    current_color = `#${randomColor()}`
+}
+
+
+function randomColor() {
+    return Math.floor(Math.random() * 16777215).toString(16);
+}
 
 //sets up grid
 function setupGrid(n) {
@@ -38,11 +55,19 @@ function setupGrid(n) {
     for (let i = 0; i < n * n; i++) {
         let grid = document.createElement('div');
         container.appendChild(grid);
-        grid.classList.add('grid')
-        grid.addEventListener('mousedown', () => {
-                grid.style.backgroundColor = current_color; 
+        grid.classList.add('grid');
+        grid.addEventListener('mousedown', () => isDrawing = true)
+        grid.addEventListener('mouseup', () => isDrawing = false);
+        grid.addEventListener('mouseout', () => {
+            if (current_mode === 'rainbow') {
+                rainbow();
+            }
         })
-        //grid.addEventListener('mouseenter', draw)
+        grid.addEventListener('mousemove', (e) => {
+            if (isDrawing) {
+                e.target.style.backgroundColor = current_color
+            }
+        })
     }
 }
 setupGrid(16)
@@ -51,13 +76,6 @@ function reloadGrid() {
     container.innerHTML = ''
     setupGrid(current_size)
 }
-
-// function draw(e) {
-//     //changeColor()
-//     if (e.mousedown & e.mouseenter) {
-//     this.style.backgroundColor = current_color;
-//     }
-// }
 
 //update value of slider when moving it 
 currentValue.addEventListener('change', () => {
