@@ -82,3 +82,8 @@ button .on {
 label {
     font-size: 18px;
 }
+
+.footer img {
+    width: 20px;
+    height: 20px;
+}
